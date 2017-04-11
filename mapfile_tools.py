@@ -12,15 +12,15 @@ def change_proj(geom, projection):
     if geo_type == 'Point':
         x,y = geom['coordinates']
         lon, lat = p(x, y, inverse=True)
-        c = tuple([lon,lat])
+        c = list([lon,lat])
     else:  # this currently is tested for a MultiLineString
         buffer = []
         for part in geom['coordinates']:
             x, y = list(zip(*list(part)))
             lons, lats = p(x, y, inverse=True)
-            line_seg_coords = tuple(zip(lons, lats))
+            line_seg_coords = list(zip(lons, lats))
             buffer.append(line_seg_coords)
-        c = tuple(buffer)
+        c = list(buffer)
 
     new_geom = {'type':geo_type,'coordinates':c}
 
